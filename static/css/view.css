@@ -1,0 +1,227 @@
+html, body {
+    width: 1920px;
+    height: 1080px;
+    margin: 0px;
+}
+
+body {
+    background-color: transparent;
+    transform: perspective(1400px) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    transform-style: preserve-3d;
+}
+
+.balken {
+    position: absolute;
+    left: 0px;
+    background-image: none;
+    background-color: transparent;
+    border-image-source: none;
+    border-image-width: 1;
+    border-image-outset: 0;
+    border-image-repeat: stretch;
+    border-color: transparent;
+    height: 140px;
+    top: 868px;
+    width: 0px;
+    color: rgb(255, 255, 255);
+}
+
+@keyframes balken_animation_k {
+    0% {
+        width: 0px;
+        height: 140px;
+        background-color: rgb(255, 255, 255);
+        animation-timing-function: linear;
+    }
+
+    /*obj*/0% {
+        width: 1920px;
+        height: 140px;
+        background-color: rgb(255, 255, 255);
+        animation-timing-function: linear;
+    }
+
+    /*fade*/0% {
+        width: 1920px;
+        height: 140px;
+        background-color: rgb(255, 255, 255);
+        animation-timing-function: linear;
+    }
+
+    100% {
+        width: 1920px;
+        height: 140px;
+        background-color: rgba(255, 255, 255, 0);
+        animation-timing-function: linear;
+    }
+}
+
+.htmlNoPages .balken_animation {
+    animation: 5.5s linear 0s 1 normal forwards running balken_animation_k;
+}
+
+.logo {
+    position: absolute;
+    top: 886px;
+    left: 125px;
+    width: 380px;
+    height: 110.84px;
+
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 1920px 120px;
+    -webkit-mask-position: -1920px 0px;
+    -webkit-mask-image: linear-gradient(90deg, rgb(0, 0, 0) 14%, rgba(0, 0, 0, 0) 99%);
+}
+
+@keyframes logo_animation_k {
+    0% {
+        width: 380px;
+        height: 110.84px;
+        left: 125px;
+        top: 886px;
+        animation-timing-function: linear;
+    }
+
+    100% {
+        width: 360px;
+        height: 105px;
+        left: 125px;
+        top: 886px;
+        animation-timing-function: linear;
+    }
+}
+
+@keyframes logo_animation_maske_k {
+    0% {
+        -webkit-mask-position: -1920px 0px;
+        animation-timing-function: linear;
+    }
+
+    /*obj*/0% {
+        -webkit-mask-position: 0px 0px;
+        animation-timing-function: linear;
+    }
+
+    /*fade*/0% {
+        -webkit-mask-position: 0px 0px;
+        animation-timing-function: linear;
+    }
+
+    100% {
+        -webkit-mask-position: -1920px 0px;
+        animation-timing-function: linear;
+    }
+}
+
+.htmlNoPages .logo_animation {
+    animation: 1s linear 0s 1 normal forwards running logo_animation_k, 5.5s linear 0s 1 normal forwards running logo_animation_maske_k;
+}
+
+.name {
+    position: absolute;
+    text-align: right;
+    right: 250px;
+    top: 878px;
+    font-family: "Alegreya Sans SC";
+    font-size: 70px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0);
+}
+
+@keyframes name_animation_k {
+    0% {
+        color: rgba(0, 0, 0, 0);
+        font-size: 90px;
+        right: 0px;
+        animation-timing-function: linear;
+    }
+
+    /*textd*/0% {
+        color: rgba(0, 0, 0, 0);
+        font-size: 90px;
+        right: 0px;
+        animation-timing-function: linear;
+    }
+
+    /*text*/0% {
+        color: rgb(0, 0, 0);
+        font-size: 70px;
+        right: 250px;
+        animation-timing-function: linear;
+    }
+
+    /*fade*/0% {
+        color: rgb(0, 0, 0);
+        font-size: 70px;
+        right: 250px;
+        animation-timing-function: linear;
+    }
+
+    100% {
+        color: rgba(0, 0, 0, 0);
+        font-size: 70px;
+        right: 250px;
+        animation-timing-function: linear;
+    }
+}
+
+.htmlNoPages .name_animation {
+    animation: 5.5s linear 0s 1 normal forwards running name_animation_k;
+}
+
+.title {
+    position: absolute;
+    font-family: Cuprum;
+    text-align: right;
+    top: 964px;
+    color: rgba(0, 0, 0, 0);
+    font-weight: bold;
+    right: 200px;
+    font-size: 40px;
+}
+
+@keyframes title_animation_k {
+    0% {
+        color: rgba(0, 0, 0, 0);
+        right: 200px;
+        font-size: 40px;
+        top: 964px;
+        animation-timing-function: linear;
+    }
+
+    /*textd*/0% {
+        color: rgba(0, 0, 0, 0);
+        right: 200px;
+        font-size: 40px;
+        top: 964px;
+        animation-timing-function: linear;
+    }
+
+    /*text*/0% {
+        color: rgb(0, 0, 0);
+        right: 250px;
+        font-size: 35px;
+        top: 960px;
+        animation-timing-function: linear;
+    }
+
+    /*fade*/0% {
+        color: rgb(0, 0, 0);
+        right: 250px;
+        font-size: 35px;
+        top: 960px;
+        animation-timing-function: linear;
+    }
+
+    100% {
+        color: rgba(0, 0, 0, 0);
+        right: 250px;
+        font-size: 35px;
+        top: 960px;
+        animation-timing-function: linear;
+    }
+}
+
+.htmlNoPages .title_animation {
+    animation: 5.5s linear 0s 1 normal forwards running title_animation_k;
+}

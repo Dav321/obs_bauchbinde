@@ -34,30 +34,32 @@ body {
         animation-timing-function: linear;
     }
 
-    /*obj*/0% {
+    <%= obj %>% {
         width: 1920px;
         height: 140px;
         background-color: rgb(255, 255, 255);
         animation-timing-function: linear;
     }
 
-    /*fade*/0% {
+    <%= fade %>% {
         width: 1920px;
         height: 140px;
         background-color: rgb(255, 255, 255);
         animation-timing-function: linear;
     }
 
+    <% if !manual { %>
     100% {
         width: 1920px;
         height: 140px;
         background-color: rgba(255, 255, 255, 0);
         animation-timing-function: linear;
     }
+    <% } %>
 }
 
 .htmlNoPages .balken_animation {
-    animation: 5.5s linear 0s 1 normal forwards running balken_animation_k;
+    animation: <%= duration %>.5s linear 0s 1 normal forwards running balken_animation_k;
 }
 
 .logo {
@@ -97,24 +99,26 @@ body {
         animation-timing-function: linear;
     }
 
-    /*obj*/0% {
+    <%= obj %>% {
         -webkit-mask-position: 0px 0px;
         animation-timing-function: linear;
     }
 
-    /*fade*/0% {
+    <%= fade %>% {
         -webkit-mask-position: 0px 0px;
         animation-timing-function: linear;
     }
 
+    <% if !manual { %>
     100% {
         -webkit-mask-position: -1920px 0px;
         animation-timing-function: linear;
     }
+    <% } %>
 }
 
 .htmlNoPages .logo_animation {
-    animation: 1s linear 0s 1 normal forwards running logo_animation_k, 5.5s linear 0s 1 normal forwards running logo_animation_maske_k;
+    animation: 1s linear 0s 1 normal forwards running logo_animation_k, <%= duration %>.5s linear 0s 1 normal forwards running logo_animation_maske_k;
 }
 
 .name {
@@ -136,37 +140,39 @@ body {
         animation-timing-function: linear;
     }
 
-    /*textd*/0% {
+    <%= text_delay %>% {
         color: rgba(0, 0, 0, 0);
         font-size: 90px;
         right: 0px;
         animation-timing-function: linear;
     }
 
-    /*text*/0% {
+    <%= text %>% {
         color: rgb(0, 0, 0);
         font-size: 70px;
         right: 250px;
         animation-timing-function: linear;
     }
 
-    /*fade*/0% {
+    <%= fade %>% {
         color: rgb(0, 0, 0);
         font-size: 70px;
         right: 250px;
         animation-timing-function: linear;
     }
 
+    <% if !manual { %>
     100% {
         color: rgba(0, 0, 0, 0);
         font-size: 70px;
         right: 250px;
         animation-timing-function: linear;
     }
+    <% } %>
 }
 
 .htmlNoPages .name_animation {
-    animation: 5.5s linear 0s 1 normal forwards running name_animation_k;
+    animation: <%= duration %>.5s linear 0s 1 normal forwards running name_animation_k;
 }
 
 .title {
@@ -189,7 +195,7 @@ body {
         animation-timing-function: linear;
     }
 
-    /*textd*/0% {
+    <%= text_delay %>% {
         color: rgba(0, 0, 0, 0);
         right: 200px;
         font-size: 40px;
@@ -197,7 +203,7 @@ body {
         animation-timing-function: linear;
     }
 
-    /*text*/0% {
+    <%= text %>% {
         color: rgb(0, 0, 0);
         right: 250px;
         font-size: 35px;
@@ -205,7 +211,7 @@ body {
         animation-timing-function: linear;
     }
 
-    /*fade*/0% {
+    <%= fade %>% {
         color: rgb(0, 0, 0);
         right: 250px;
         font-size: 35px;
@@ -213,6 +219,7 @@ body {
         animation-timing-function: linear;
     }
 
+    <% if !manual { %>
     100% {
         color: rgba(0, 0, 0, 0);
         right: 250px;
@@ -220,8 +227,9 @@ body {
         top: 960px;
         animation-timing-function: linear;
     }
+    <% } %>
 }
 
 .htmlNoPages .title_animation {
-    animation: 5.5s linear 0s 1 normal forwards running title_animation_k;
+    animation: <%= duration %>.5s linear 0s 1 normal forwards running title_animation_k;
 }

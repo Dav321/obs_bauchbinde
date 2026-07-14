@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bauchbinde</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="control.css" rel="stylesheet">
+</head>
+<body>
+
+<section class="card preview" aria-label="Aktuelle Anzeige">
+    <p class="eyebrow">Live-Vorschau</p>
+    <div class="lt">
+        <div class="lt-bar"></div>
+        <div class="lt-text">
+            <div class="lt-name"><%= current_name %></div>
+            <div class="lt-typ"><%= current_label %></div>
+        </div>
+    </div>
+    <div class="lt-meta">
+        <span>Anzeigedauer</span>
+        <span><%= duration.to_string() %></span>
+    </div>
+</section>
+
+<section class="card">
+    <h2>Einstellung</h2>
+    <form action="/titles/select" method="post">
+        <div class="row">
+            <select id="preset" name="preset">
+                <% for (id, name, title) in titles { %>
+                    <option value="<%= id %>"><%= name %>|<%= title %></option>
+                <% } %>
+            </select>
+        </div>
+        <div class="row">
+            <label for="duration">Anzeigedauer (5&ndash;20 s) / Manuell</label>
+            <div class="slider-row">
+                <input id="duration" name="duration" type="range" min="5" max="21" value="<%= duration %>" step="1" oninput="updateSlider()" onmousemove="updateSlider()">
+                <span id="sliderLabel">5 sec</span>
+            </div>
+        </div>
+        <div class="btn-row">
+            <button class="primary" type="submit">Übernehmen</button>
+            <button type="button" onclick="buttonBearbeitenClick()">Preset bearbeiten</button>
+            <button class="danger" type="submit" onclick="deletePreset()">Löschen</button>
+        </div>
+    </form>
+</section>
+
+<section class="card" hidden="hidden" id="edit_section">
+    <h2>Ausgewähltes Preset bearbeiten</h2>
+    <form action="/error" method="post" id="create_edit">
+        <div class="two-col row">
+            <div>
+                <label for="inputName">Name</label>
+                <input type="text" id="inputName" name="name" placeholder="Name">
+            </div>
+            <div>
+                <label for="inputTyp">Typ</label>
+                <input type="text" id="inputTyp" name="label" placeholder="Typ">
+            </div>
+            <div>
+                <label><br></label>
+                <button class="primary" type="submit">Speichern</button>
+            </div>
+        </div>
+    </form>
+</section>
+
+<section class="card">
+    <h2>Neues Preset erstellen</h2>
+    <form action="/titles/" method="post">
+        <div class="two-col row">
+            <div>
+                <label for="inputName">Name</label>
+                <input type="text" name="name" placeholder="Name">
+            </div>
+            <div>
+                <label for="inputTyp">Typ</label>
+                <input type="text" name="label" placeholder="Typ">
+            </div>
+            <div>
+                <label><br></label>
+                <button class="primary" type="submit">Speichern</button>
+            </div>
+        </div>
+    </form>
+</section>
+
+<script src="control.js"></script>
+
+</body>
+</html>

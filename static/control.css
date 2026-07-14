@@ -1,0 +1,203 @@
+:root{
+    --bg:#111316;
+    --panel:#1a1d21;
+    --panel-2:#212529;
+    --border:#2b3036;
+    --text:#eceef0;
+    --text-dim:#8b929a;
+    --danger: #ce2f39;
+    --danger-dim: #330b10;
+    --action:#2fc4b3;
+    --action-dim:rgba(47,196,179,.14);
+    --title-fs:13px;
+    --lable-fs:13px;
+}
+*{box-sizing:border-box;}
+html,body{
+    margin:0;
+    padding:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    font-size:var(--lable-fs);
+}
+body{padding:10px;}
+.eyebrow{
+    font-size:var(--title-fs);
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--text-dim);
+    font-weight:600;
+    margin:0 0 6px;
+}
+.card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:12px;
+    margin-bottom:10px;
+}
+.lt{
+    display:flex;
+    margin-top:14px;
+    background:var(--panel-2);
+    border-radius:2px;
+    overflow:hidden;
+}
+.lt-bar{
+    width:5px;
+    background:var(--danger);
+    flex-shrink:0;
+}
+.lt-text{
+    padding:9px 12px;
+    min-width:0;
+}
+.lt-name{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    font-size:19px;
+    text-transform:uppercase;
+    letter-spacing:.02em;
+    line-height:1.1;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.lt-typ{
+    font-family:'Oswald',sans-serif;
+    font-size:16px;
+    color:var(--text-dim);
+    letter-spacing:.03em;
+    margin-top:2px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.lt-meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:8px;
+    font-size:var(--lable-fs);
+    color:var(--text-dim);
+}
+.lt-meta span{font-variant-numeric:tabular-nums;}
+
+h2{
+    font-size:var(--title-fs);
+    font-weight:600;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--text-dim);
+    margin:0 0 8px;
+}
+
+label{
+    display:block;
+    font-size:var(--lable-fs);
+    color:var(--text-dim);
+    margin-bottom:4px;
+}
+
+select, input[type="text"]{
+    width:100%;
+    background:var(--panel-2);
+    border:1px solid var(--border);
+    color:var(--text);
+    border-radius:6px;
+    padding:7px 9px;
+    font-size:var(--lable-fs);
+    font-family:inherit;
+}
+select:focus, input[type="text"]:focus{
+    outline:none;
+    border-color:var(--action);
+}
+
+.row{margin-bottom:10px;}
+
+.slider-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+input[type="range"]{
+    flex:1;
+    -webkit-appearance:none;
+    height:4px;
+    background:var(--border);
+    border-radius:2px;
+    outline:none;
+}
+input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    width:15px;
+    height:15px;
+    border-radius:50%;
+    background:var(--action);
+    cursor:pointer;
+    border:2px solid var(--panel);
+}
+input[type="range"]::-moz-range-thumb{
+    width:15px;
+    height:15px;
+    border-radius:50%;
+    background:var(--action);
+    cursor:pointer;
+    border:2px solid var(--panel);
+}
+#sliderLabel{
+    font-size:var(--lable-fs);
+    font-weight:600;
+    color:var(--action);
+    min-width:52px;
+    text-align:right;
+    font-variant-numeric:tabular-nums;
+}
+
+button{
+    font-family:inherit;
+    font-size:var(--lable-fs);
+    font-weight:600;
+    border-radius:6px;
+    padding:7px 12px;
+    border:1px solid var(--border);
+    background:var(--panel-2);
+    color:var(--text);
+    cursor:pointer;
+    transition:background .12s ease, border-color .12s ease;
+}
+button:hover{
+    border-color:var(--text-dim);
+}
+button.primary{
+    background:var(--action-dim);
+    border-color:var(--action);
+    color:var(--action);
+}
+button.primary:hover{
+    background:var(--action);
+    color:#04211d;
+}
+button.danger{
+    background: var(--danger-dim);
+    border-color:var(--danger);
+    color:var(--danger);
+}
+button.danger:hover{
+    background:var(--danger);
+    color:#04211d;
+}
+.btn-row{
+    display:flex;
+    gap:8px;
+}
+.btn-row button{flex:1;}
+
+form{margin:0;}
+.two-col{
+    display:grid;
+    grid-template-columns:1fr 1fr auto;
+    gap:8px;
+}

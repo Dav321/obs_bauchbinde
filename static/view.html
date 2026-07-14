@@ -4,16 +4,16 @@
 <head>
     <meta charset="utf-8">
     <title>Bauchbinde</title>
-    <link href="css/view.css" rel="stylesheet">
+    <link href="view.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Cuprum:regular,italic,700,700italic|Alegreya+Sans+SC:100,100italic,300,300italic,regular,italic,500,500italic,700,700italic,800,800italic,900,900italic" rel="stylesheet" type="text/css">
 </head>
 
 <body class="htmlNoPages">
     <div id="frame">
         <div class="balken balken_animation" id="Balken"></div>
-        <img class="logo logo_animation" src="img/logo.png" id="Logo" alt="logo">
-        <span class="title title_animation" id="Typ">@Model.Typ</span>
-        <span class="name name_animation" id="Name">@Model.Name</span>
+        <img class="logo logo_animation" src="logo.png" id="Logo" alt="logo">
+        <span class="title title_animation" id="Typ"><%= label %></span>
+        <span class="name name_animation" id="Name"><%= name %></span>
     </div>
 </body>
 

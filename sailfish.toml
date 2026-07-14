@@ -1,0 +1,6 @@
+template_dirs = ["static"]
+escape = true
+delimiter = "%"
+
+[optimizations]
+rm_whitespace = true

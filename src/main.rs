@@ -1,21 +1,19 @@
 mod api;
 mod db;
-mod middleware;
+mod frontend;
 mod state;
 
 use crate::api::api;
-use crate::middleware::middleware;
+use crate::frontend::frontend;
 use crate::state::{Duration, State};
-use actix_files::Files;
-use actix_web::web::{Data, Redirect};
-use actix_web::{App, HttpServer, Responder, get};
+use actix_web::web::Data;
+use actix_web::{App, HttpServer};
 use std::env::current_dir;
 use std::sync::Mutex;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    let path = current_dir()?;
-    println!("DB dir: {:?}", path);
+    print_header();
 
     let state = Data::new(State {
         selected: Mutex::new(None),
@@ -25,17 +23,22 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(move || {
         App::new()
             .app_data(state.clone())
-            .service(index)
-            .configure(middleware)
+            .configure(frontend)
             .configure(api)
-            .service(Files::new("/", "./static").prefer_utf8(true))
     })
     .bind(("127.0.0.1", 5000))?
     .run()
     .await
 }
 
-#[get("/")]
-async fn index(_: Data<State>) -> impl Responder {
-    Redirect::to("/control.html").permanent()
+fn print_header() {
+    println!("Bauchbinde v{}", env!("CARGO_PKG_VERSION"));
+    println!("---");
+    println!("control: http://localhost:5000/control.html");
+    println!("view: http://localhost:5000/view.html");
+    match current_dir() {
+        Ok(path) => println!("DB dir: {:?}", path),
+        Err(e) => println!("{e}"),
+    }
+    println!("---");
 }

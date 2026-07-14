@@ -2,5 +2,5 @@
 /.idea
 Cargo.lock
 bauchbinde.db
-/static/logo.png
+logo.png
 /bruno

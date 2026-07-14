@@ -1,14 +1,46 @@
 use crate::State;
 use crate::db::{get_title, list_titles};
 use crate::state::Duration;
-use actix_web::web::{Data, ServiceConfig};
+use actix_web::web::{Data, Redirect, ServiceConfig};
 use actix_web::{HttpResponse, Responder, get};
 use sailfish::TemplateSimple;
 
-pub fn middleware(cfg: &mut ServiceConfig) {
-    cfg.service(control_html)
+pub fn frontend(cfg: &mut ServiceConfig) {
+    cfg.service(index)
+        .service(control_css)
+        .service(control_html)
+        .service(control_js)
         .service(view_html)
-        .service(view_css);
+        .service(view_css)
+        .service(logo);
+}
+
+#[get("/")]
+async fn index(_: Data<State>) -> impl Responder {
+    Redirect::to("/control.html").permanent()
+}
+
+#[get("/control.css")]
+pub async fn control_css() -> impl Responder {
+    HttpResponse::Ok()
+        .content_type("text/css")
+        .body(include_str!("../static/control.css"))
+}
+
+#[get("/control.js")]
+pub async fn control_js() -> impl Responder {
+    HttpResponse::Ok()
+        .content_type("text/javascript")
+        .body(include_str!("../static/control.js"))
+}
+
+#[get("/logo.png")]
+pub async fn logo() -> impl Responder {
+    let logo = match std::fs::read("logo.png") {
+        Ok(logo) => logo,
+        Err(e) => return HttpResponse::InternalServerError().body(e.to_string()),
+    };
+    HttpResponse::Ok().content_type("image/png").body(logo)
 }
 
 #[derive(TemplateSimple)]
@@ -50,7 +82,7 @@ pub async fn control_html(state: Data<State>) -> impl Responder {
     }
     .render_once()
     .unwrap();
-    HttpResponse::Ok().body(html)
+    HttpResponse::Ok().content_type("text/html").body(html)
 }
 
 #[derive(TemplateSimple)]
@@ -81,7 +113,7 @@ pub async fn view_html(state: Data<State>) -> impl Responder {
 
     let html = ViewHtml { name, label }.render_once().unwrap();
 
-    HttpResponse::Ok().body(html)
+    HttpResponse::Ok().content_type("text/html").body(html)
 }
 
 #[derive(TemplateSimple)]
@@ -118,7 +150,7 @@ pub async fn view_css(state: Data<State>) -> impl Responder {
     .render_once()
     .unwrap();
 
-    HttpResponse::Ok().body(css)
+    HttpResponse::Ok().content_type("text/css").body(css)
 }
 
 fn calc_percentages(duration: u8) -> (f32, f32, f32, f32) {

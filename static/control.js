@@ -9,17 +9,21 @@ function updateSlider() {
     }
 }
 
-async function deletePreset() {
+async function deletePreset(event) {
+    event.preventDefault();
+
     const dropdown = document.getElementById("preset");
-    const url = 'http://localhost:5000/titles/' + dropdown.value;
+    const url = '/titles/' + dropdown.value;
     const options = {method: 'DELETE'};
 
     try {
         let response = await fetch(url, options);
         if (response.ok) {
             location.reload();
+            return;
         }
-        console.error(response.text());
+        let msg = await response.text();
+        console.error(msg);
     } catch (error) {
         console.error(error);
     }

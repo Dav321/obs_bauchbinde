@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bauchbinde</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="/control.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="error-wrap">
+    <section class="card preview" aria-label="Error">
+        <p class="eyebrow">Error</p>
+        <div class="lt">
+            <div class="lt-bar"></div>
+            <div class="lt-text">
+                <div class="error-code-row">
+                    <span class="error-code"><%= code %></span>
+                    <div>
+                        <div class="lt-typ"><%= name %></div>
+                    </div>
+                </div>
+                <p class="error-msg">
+                    <%= message %>
+                </p>
+            </div>
+        </div>
+        <div class="lt-meta">
+            <span>Error <%= code %></span>
+            <span id="timestamp"></span>
+        </div>
+    </section>
+
+    <div class="btn-row">
+        <button onclick="window.history.back()">Zurück</button>
+    </div>
+</div>
+
+<script>
+    document.getElementById('timestamp').textContent = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+</script>
+
+</body>
+</html>

@@ -201,3 +201,22 @@ form{margin:0;}
     grid-template-columns:1fr 1fr auto;
     gap:8px;
 }
+.error-wrap{
+    width:100%;
+}
+.error-code{
+    font-family:'Oswald',sans-serif;
+    font-size:56px;
+    font-weight:600;
+    line-height:1;
+    color:var(--danger);
+    letter-spacing:.02em;
+}
+.error-code-row{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+}
+.error-msg{
+    font-size:16px;
+}

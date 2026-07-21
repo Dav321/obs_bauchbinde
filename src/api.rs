@@ -1,6 +1,5 @@
 use crate::State;
 use crate::db::{add_title, delete_title, edit_title, get_title};
-use crate::frontend::error_html;
 use crate::state::Duration;
 use actix_web::http::header;
 use actix_web::web::{Data, ServiceConfig, scope};
@@ -38,14 +37,10 @@ async fn add(title: actix_web::web::Form<TitleForm>) -> impl Responder {
                     .insert_header((header::LOCATION, "/control.html"))
                     .finish()
             } else {
-                error_html(
-                    400,
-                    "Bad Request".to_string(),
-                    "Already Exists!".to_string(),
-                )
+                HttpResponse::BadRequest().body("Already Exists!")
             }
         }
-        Err(e) => error_html(500, "Internal Server Error".to_string(), e.to_string()),
+        Err(e) => HttpResponse::InternalServerError().body(e.to_string()),
     }
 }
 
@@ -54,18 +49,12 @@ async fn delete(id: actix_web::web::Path<i64>) -> impl Responder {
     match delete_title(*id) {
         Ok(res) => {
             if res == 1 {
-                HttpResponse::SeeOther()
-                    .insert_header((header::LOCATION, "/control.html"))
-                    .finish()
+                HttpResponse::NoContent().finish()
             } else {
-                error_html(
-                    400,
-                    "Bad Request".to_string(),
-                    format!("No title with id {id}"),
-                )
+                HttpResponse::BadRequest().body(format!("No title with id {id}"))
             }
         }
-        Err(e) => error_html(500, "Internal Server Error".to_string(), e.to_string()),
+        Err(e) => HttpResponse::InternalServerError().body(e.to_string()),
     }
 }
 
@@ -81,14 +70,10 @@ async fn edit(
                     .insert_header((header::LOCATION, "/control.html"))
                     .finish()
             } else {
-                error_html(
-                    400,
-                    "Bad Request".to_string(),
-                    format!("No title with id {id} / Already Exists!"),
-                )
+                HttpResponse::BadRequest().body(format!("No title with id {id} / Already Exists!"))
             }
         }
-        Err(e) => error_html(500, "Internal Server Error".to_string(), e.to_string()),
+        Err(e) => HttpResponse::InternalServerError().body(e.to_string()),
     }
 }
 
@@ -96,26 +81,19 @@ async fn edit(
 async fn select(select: actix_web::web::Form<SelectForm>, state: Data<State>) -> impl Responder {
     let res = match get_title(select.preset) {
         Ok(res) => res,
-        Err(e) => return error_html(500, "Internal Server Error".to_string(), e.to_string()),
+        Err(e) => return HttpResponse::InternalServerError().body(e.to_string()),
     };
 
     if res.is_none() {
-        return error_html(
-            400,
-            "Bad Request".to_string(),
-            format!("No title with id {}", select.preset),
-        );
+        return HttpResponse::BadRequest().body(format!("No title with id {}", select.preset));
     }
 
     *state.selected.lock().unwrap() = Some(select.preset);
 
     match Duration::new(select.duration) {
         None => {
-            return error_html(
-                400,
-                "Bad Request".to_string(),
-                format!("Invalid duration: {}", select.duration),
-            );
+            return HttpResponse::BadRequest()
+                .body(format!("Invalid duration: {}", select.duration));
         }
         Some(d) => *state.duration.lock().unwrap() = d,
     }

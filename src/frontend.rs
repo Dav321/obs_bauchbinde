@@ -4,7 +4,6 @@ use crate::state::Duration;
 use actix_web::web::{Data, Redirect, ServiceConfig};
 use actix_web::{HttpResponse, Responder, get};
 use sailfish::TemplateSimple;
-use serde::Deserialize;
 
 pub fn frontend(cfg: &mut ServiceConfig) {
     cfg.service(index)
@@ -39,27 +38,9 @@ pub async fn control_js() -> impl Responder {
 pub async fn logo() -> impl Responder {
     let logo = match std::fs::read("logo.png") {
         Ok(logo) => logo,
-        Err(e) => return error_html(500, "Internal Server Error".to_string(), e.to_string()),
+        Err(e) => return HttpResponse::InternalServerError().body(e.to_string()),
     };
     HttpResponse::Ok().content_type("image/png").body(logo)
-}
-
-#[derive(TemplateSimple, Deserialize, Clone)]
-#[template(path = "error.html")]
-struct ErrorHtml {
-    code: u16,
-    name: String,
-    message: String,
-}
-
-pub fn error_html(code: u16, name: String, message: String) -> HttpResponse {
-    let error = ErrorHtml {
-        code,
-        name,
-        message,
-    };
-    let html = error.clone().render_once().unwrap();
-    HttpResponse::Ok().content_type("text/html").body(html)
 }
 
 #[derive(TemplateSimple)]
@@ -75,7 +56,7 @@ struct ControlHtml {
 pub async fn control_html(state: Data<State>) -> impl Responder {
     let records = match list_titles() {
         Ok(res) => res,
-        Err(e) => return error_html(500, "Internal Server Error".to_string(), e.to_string()),
+        Err(e) => return HttpResponse::InternalServerError().body(e.to_string()),
     };
 
     let selected = *state.selected.lock().unwrap();
@@ -115,11 +96,7 @@ struct ViewHtml {
 pub async fn view_html(state: Data<State>) -> impl Responder {
     let selected = *state.selected.lock().unwrap();
     if selected.is_none() {
-        return error_html(
-            400,
-            "Bad Request".to_string(),
-            "No title selected!".to_string(),
-        );
+        return HttpResponse::BadRequest().body("No title selected!");
     }
     let selected = selected.unwrap();
 
@@ -128,14 +105,10 @@ pub async fn view_html(state: Data<State>) -> impl Responder {
             if let Some(res) = res {
                 res
             } else {
-                return error_html(
-                    400,
-                    "Bad Request".to_string(),
-                    format!("No title with id {}", selected),
-                );
+                return HttpResponse::BadRequest().body(format!("No title with id {}", selected));
             }
         }
-        Err(e) => return error_html(500, "Internal Server Error".to_string(), e.to_string()),
+        Err(e) => return HttpResponse::InternalServerError().body(e.to_string()),
     };
 
     let html = ViewHtml { name, label }.render_once().unwrap();

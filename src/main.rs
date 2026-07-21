@@ -1,11 +1,14 @@
 mod api;
 mod db;
+mod error;
 mod frontend;
 mod state;
 
 use crate::api::api;
+use crate::error::error_middleware;
 use crate::frontend::frontend;
 use crate::state::{Duration, State};
+use actix_web::middleware::ErrorHandlers;
 use actix_web::web::Data;
 use actix_web::{App, HttpServer};
 use std::env::current_dir;
@@ -22,6 +25,7 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(move || {
         App::new()
+            .wrap(ErrorHandlers::new().default_handler(error_middleware))
             .app_data(state.clone())
             .configure(frontend)
             .configure(api)
